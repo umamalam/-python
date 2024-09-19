@@ -1,0 +1,6 @@
+t1=tuple(eval(input("enter the tuple1:")))
+t2=tuple(eval(input("enter the tuple2:")))
+t3=tuple(eval(input("enter the tuple3:")))
+print("tuple1:",t1)
+print("tuple2:",t2)
+print("tuple3:",t3)
