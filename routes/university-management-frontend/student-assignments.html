@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📚 My Assignments</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .assignments-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .assignment-card {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 0.5s ease;
+    }
+
+    .assignment-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .course-title {
+      font-size: 1.4rem;
+      color: #34495e;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .upload-input {
+      display: none;
+    }
+
+    .upload-label {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .upload-label:hover {
+      background-color: #2980b9;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 My Assignments</h1>
+  <div class="assignments-container" id="assignment-list"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZZtQneebZgqwUXRICM8d5LT82nbA5NDk",
+      authDomain: "dei-universityapp.firebaseapp.com",
+      projectId: "dei-universityapp",
+      storageBucket: "dei-universityapp.appspot.com",
+      messagingSenderId: "57687266282",
+      appId: "1:57687266282:web:9640457aed82834b8e5893",
+      measurementId: "G-D8MPS11Y49"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const assignmentList = document.getElementById("assignment-list");
+    const loggedInStudentName = "Umam Alam"; // Make this dynamic later
+
+    async function fetchAssignments() {
+      const snapshot = await getDocs(collection(db, "assignments"));
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const assignedTo = data.assignedTo || [];
+
+        if (assignedTo.includes(loggedInStudentName)) {
+          const card = document.createElement("div");
+          card.className = "assignment-card";
+          const inputId = `upload-${docSnap.id}`;
+
+          card.innerHTML = `
+            <div class="course-title">${data.assignmentTitle}</div>
+            <label for="${inputId}" class="upload-label">📁 Upload Assignment</label>
+            <input type="file" class="upload-input" id="${inputId}" data-assignment-id="${docSnap.id}" accept=".pdf,.doc,.docx" />
+          `;
+          assignmentList.appendChild(card);
+        }
+      });
+
+      // Upload handler
+      document.querySelectorAll('.upload-input').forEach(input => {
+        input.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          const assignmentId = e.target.getAttribute("data-assignment-id");
+
+          if (!file) return alert("No file selected!");
+
+          try {
+            const fileRef = ref(storage, `submissions/${assignmentId}/${loggedInStudentName}_${file.name}`);
+            await uploadBytes(fileRef, file);
+            const fileURL = await getDownloadURL(fileRef);
+
+            const submissionRef = doc(db, "submissions", `${assignmentId}_${loggedInStudentName}`);
+            await setDoc(submissionRef, {
+              student: loggedInStudentName,
+              assignmentId,
+              fileURL,
+              timestamp: new Date()
+            });
+
+            alert("✅ Assignment submitted successfully!");
+          } catch (error) {
+            console.error("Upload failed:", error);
+            alert("❌ Failed to upload assignment.");
+          }
+        });
+      });
+    }
+
+    fetchAssignments();
+  </script>
+</body>
+</html>
+

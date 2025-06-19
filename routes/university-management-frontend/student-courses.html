@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Courses</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #00796b;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .courses-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .course-card {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      width: 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 150, 136, 0.1), transparent);
+      transform: skewX(-20deg);
+      z-index: 0;
+    }
+
+    .course-card h3 {
+      color: #00796b;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .course-card p {
+      margin: 6px 0;
+      color: #333;
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .course-card {
+      animation: fadeInUp 0.6s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <header>📚 My Enrolled Courses</header>
+  <div id="course-list" class="courses-container"></div>
+
+  <!-- Firebase JS SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZZtQneebZgqwUXRICM8d5LT82nbA5NDk",
+      authDomain: "dei-universityapp.firebaseapp.com",
+      projectId: "dei-universityapp",
+      storageBucket: "dei-universityapp.appspot.com",
+      messagingSenderId: "57687266282",
+      appId: "1:57687266282:web:9640457aed82834b8e5893",
+      measurementId: "G-D8MPS11Y49"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const courseList = document.getElementById("course-list");
+
+    async function fetchCourses() {
+      const querySnapshot = await getDocs(collection(db, "courses"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <h3>${data.title}</h3>
+          <p><strong>Subject:</strong> ${data.description}</p>
+          <p><strong>Instructor:</strong> ${data.faculty}</p>
+          <p><strong>Credits:</strong> ${data.credits}</p>
+        `;
+        courseList.appendChild(card);
+      });
+    }
+
+    fetchCourses();
+  </script>
+</body>
+</html>
+
+
+

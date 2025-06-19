@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>👩‍🏫 Faculty Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #f4f6f9, #ddefff);
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #154360;
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.6s ease;
+      text-decoration: none;
+      color: #2c3e50;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      background-color: #eaf3fc;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>👩‍🏫 Faculty Dashboard</h1>
+
+  <div class="dashboard-container">
+    <a href="my-courses.html" class="card">
+      <div class="card-title">My Courses</div>
+      <div class="card-desc">Manage subjects you're teaching</div>
+    </a>
+
+    <a href="attendance.html" class="card">
+      <div class="card-title">Attendance</div>
+      <div class="card-desc">Mark & view attendance</div>
+    </a>
+
+    <a href="assignments.html" class="card">
+      <div class="card-title">Assignments</div>
+      <div class="card-desc">Create, view and check submissions</div>
+    </a>
+
+    <a href="results.html" class="card">
+      <div class="card-title">Results</div>
+      <div class="card-desc">Upload and manage student marks</div>
+    </a>
+
+    <a href="feedback.html" class="card">
+      <div class="card-title">Feedback</div>
+      <div class="card-desc">View student feedback or respond</div>
+    </a>
+
+    <a href="announcements.html" class="card">
+      <div class="card-title">Announcements</div>
+      <div class="card-desc">Post notices for your students</div>
+    </a>
+  </div>
+</body>
+</html>
+

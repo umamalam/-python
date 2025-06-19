@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📅 My Attendance</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #e8f1ff);
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .attendance-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .attendance-card {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 0.5s ease;
+    }
+
+    .attendance-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .course-title {
+      font-size: 1.3rem;
+      color: #34495e;
+      margin-bottom: 10px;
+    }
+
+    .attendance-date {
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
+
+    .status-button {
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border: none;
+      cursor: default;
+    }
+
+    .present {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .absent {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 My Attendance</h1>
+  <div class="attendance-container" id="attendance-list"></div>
+
+  <!-- Firebase JS SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZZtQneebZgqwUXRICM8d5LT82nbA5NDk",
+      authDomain: "dei-universityapp.firebaseapp.com",
+      projectId: "dei-universityapp",
+      storageBucket: "dei-universityapp.appspot.com",
+      messagingSenderId: "57687266282",
+      appId: "1:57687266282:web:9640457aed82834b8e5893",
+      measurementId: "G-D8MPS11Y49"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const attendanceList = document.getElementById("attendance-list");
+
+    async function fetchAttendance() {
+      const snapshot = await getDocs(collection(db, "attendance"));
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const students = data.students || [];
+        const currentStudent = students.find(s => s.name === "Umam Alam");
+        // Replace with dynamic name if needed
+
+        if (currentStudent) {
+          const card = document.createElement("div");
+          card.className = "attendance-card";
+          card.innerHTML = `
+            <h2 class="course-title">${data.courseTitle}</h2>
+            <p class="attendance-date">📆 Date: ${data.date}</p>
+            <button class="status-button ${currentStudent.present ? 'present' : 'absent'}">
+              ${currentStudent.present ? 'Present ✅' : 'Absent ❌'}
+            </button>
+          `;
+          attendanceList.appendChild(card);
+        }
+      });
+    }
+
+    fetchAttendance();
+  </script>
+</body>
+</html>

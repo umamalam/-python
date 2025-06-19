@@ -1,0 +1,13 @@
+[build]
+  cmd = "npm install"
+
+[deploy]
+  cmd = "npm start"
+
+[env]
+  MONGODB = "mongodb://localhost:27017/university-system"
+  PORT = "3000"
+
+[database]
+  name = "university-system"
+  type = "mongodb"

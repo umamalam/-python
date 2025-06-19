@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Courses</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9fb;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .course-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: scale(1.02);
+    }
+
+    .course-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+
+    .info {
+      color: #555;
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 All Courses</h1>
+  <div class="course-grid">
+    <div class="course-card">
+      <div class="course-title">Introduction to AI</div>
+      <div class="info">Credits: 6</div>
+      <div class="info">Instructor: Dr. Neha Srivastava</div>
+    </div>
+    <div class="course-card">
+      <div class="course-title">Database Systems</div>
+      <div class="info">Credits: 3</div>
+      <div class="info">Instructor: Prof. Ritu Gupta</div>
+    </div>
+    <div class="course-card">
+      <div class="course-title">Web Development</div>
+      <div class="info">Credits: 4</div>
+      <div class="info">Instructor: Prof. Sharma</div>
+    </div>
+    <div class="course-card">
+      <div class="course-title">Data Structures</div>
+      <div class="info">Credits: 3</div>
+      <div class="info">Instructor: Dr. Neha Verma</div>
+    </div>
+  </div>
+</body>
+</html>

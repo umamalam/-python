@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #2f80ed;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .dashboard {
+      max-width: 1100px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 0 20px;
+    }
+
+    a.card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a.card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .card i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #2f80ed;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<header>🎓 Student Dashboard</header>
+
+<section class="dashboard">
+  <a href="student-courses.html" class="card">
+    <i class="fas fa-book-open"></i>
+    <h3>My Courses</h3>
+    <p>View and access your enrolled subjects.</p>
+  </a>
+
+  <a href="student-attendance.html" class="card">
+    <i class="fas fa-calendar-check"></i>
+    <h3>Attendance</h3>
+    <p>Track your class attendance records.</p>
+  </a>
+
+  <a href="student-assignments.html" class="card">
+    <i class="fas fa-tasks"></i>
+    <h3>Assignments</h3>
+    <p>View upcoming and past assignments.</p>
+  </a>
+
+  <a href="student-results.html" class="card">
+    <i class="fas fa-chart-line"></i>
+    <h3>Results</h3>
+    <p>Check your exam scores and grades.</p>
+  </a>
+
+  <a href="student-messages.html" class="card">
+    <i class="fas fa-envelope"></i>
+    <h3>Messages</h3>
+    <p>View messages from faculty or admin.</p>
+  </a>
+
+  <a href="student-announcements.html" class="card">
+    <i class="fas fa-bullhorn"></i>
+    <h3>Announcements</h3>
+    <p>Read the latest campus announcements.</p>
+  </a>
+</section>
+
+</body>
+</html>
+
