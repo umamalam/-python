@@ -1,13 +1,8 @@
 [build]
-  cmd = "npm install"
+  cmd = "echo 'Static site deployment'"
 
 [deploy]
   cmd = "npm start"
 
 [env]
-  MONGODB = "mongodb://localhost:27017/university-system"
   PORT = "3000"
-
-[database]
-  name = "university-system"
-  type = "mongodb"

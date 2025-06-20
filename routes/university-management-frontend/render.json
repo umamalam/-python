@@ -1,0 +1,9 @@
+{
+  "name": "university-management-system",
+  "type": "static",
+  "buildCommand": "echo 'Static site deployment'",
+  "startCommand": "npx serve",
+  "env": {
+    "PORT": "3000"
+  }
+}

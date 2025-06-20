@@ -1,0 +1,12 @@
+{
+  "name": "university-management-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for University Management System",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}

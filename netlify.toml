@@ -1,0 +1,11 @@
+[build]
+  base = "routes/university-management-frontend"
+  publish = "/"
+  command = "echo 'Static site deployment'"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[dev]
+  command = "npx serve"
+  port = 8080
